@@ -432,7 +432,7 @@
                   </div>
                </div>
                <!-- row -->
-               <div class="row">
+               <form class="row" action="/admin/products" enctype="multipart/form-data" method="post" novalidate>
                   <div class="col-lg-8 col-12">
                      <!-- card -->
                      <div class="card mb-6 card-lg">
@@ -442,47 +442,65 @@
                            <div class="row">
                               <!-- input -->
                               <div class="mb-3 col-lg-6">
-                                 <label class="form-label">Title</label>
-                                 <input type="text" class="form-control" placeholder="Product Name" required />
+                                 <label  class="form-label">Title</label>
+                                 <input type="text" name='title' class="form-control" placeholder="Product Name" required />
                               </div>
                               <!-- input -->
                               <div class="mb-3 col-lg-6">
                                  <label class="form-label">Product Category</label>
-                                 <select class="form-select">
-                                    <option selected>Product Category</option>
-                                    <option value="Dairy, Bread & Eggs">Dairy, Bread & Eggs</option>
-                                    <option value="Snacks & Munchies">Snacks & Munchies</option>
+                                 <select name="category" class="form-select">
+                                    <option value="Dairy">Dairy</option>
+                                    <option value="Coffee & Grain food">Coffee & Grain food</option>
+									<option value="Proccessed food">Proccessed food</option>
+									<option value="Poutry & Fish">Poutry & Fish</option>
                                     <option value="Fruits & Vegetables">Fruits & Vegetables</option>
                                  </select>
                               </div>
                               <!-- input -->
                               <div class="mb-3 col-lg-6">
                                  <label class="form-label">Weight</label>
-                                 <input type="text" class="form-control" placeholder="Weight" required />
+                                 <input type="text"name='weight' class="form-control" placeholder="Weight" required />
                               </div>
                               <!-- input -->
                               <div class="mb-3 col-lg-6">
                                  <label class="form-label">Units</label>
-                                 <select class="form-select">
-                                    <option selected>Select Units</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                 <select  name="units" class="form-select">
+                                    <option selected>kgs</option>
+                                    <option value="1">kg</option>
+                                    <option value="2">ml</option>
+                                    <option value="3">gm</option>
+									<option value="1">m</option>
                                  </select>
                               </div>
                               <div>
                                  <div class="mb-3 col-lg-12 mt-5">
                                     <!-- heading -->
-                                    <h4 class="mb-3 h5">Product Images</h4>
+                                    <h4 class="mb-3 h5">Product Image</h4>
 
                                     <!-- input -->
-                                    <div id="my-dropzone" class="dropzone mt-4 border-dashed rounded-2 min-h-0"></div>
+									<div class="mb-4 d-flex">
+										<div class="position-relative">
+										   <img class="image icon-shape icon-xxxl bg-light rounded-4"  src="../assets/images/icons/bakery.svg" alt="Image" />
+		  
+										   <div class="file-upload position-absolute end-0 top-0 mt-n2 me-n1">
+											  <input type="file" name="image" class="file-input" />
+											  <span class="icon-shape icon-sm rounded-circle bg-white">
+												 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="green" class="bi bi-pencil-fill text-muted" viewBox="0 0 16 16">
+													<path
+													   d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z" />
+												 </svg>
+											  </span>
+										   </div>
+										</div>
+									 </div>
                                  </div>
                               </div>
                               <!-- input -->
                               <div class="mb-3 col-lg-12 mt-5">
                                  <h4 class="mb-3 h5">Product Descriptions</h4>
-                                 <div class="py-8" id="editor"></div>
+								 <div class="form-check">
+									<textarea class="form-control" name="description">Enter description</textarea>
+								 </div>
                               </div>
                            </div>
                         </div>
@@ -495,31 +513,31 @@
                         <div class="card-body p-6">
                            <!-- input -->
                            <div class="form-check form-switch mb-4">
-                              <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchStock" checked />
+                              <input class="form-check-input" name="stock" type="checkbox" role="switch" id="flexSwitchStock" />
                               <label class="form-check-label" for="flexSwitchStock">In Stock</label>
                            </div>
                            <!-- input -->
                            <div>
                               <div class="mb-3">
                                  <label class="form-label">Product Code</label>
-                                 <input type="text" class="form-control" placeholder="Enter Product Title" />
+                                 <input type="text" name="promocode" class="form-control" placeholder="Enter Product promo" />
                               </div>
-                              <!-- input -->
-                              <div class="mb-3">
-                                 <label class="form-label">Product SKU</label>
-                                 <input type="text" class="form-control" placeholder="Enter Product Title" />
-                              </div>
+							  <div class="mb-3">
+								<label class="form-label">Product vendor</label>
+								<input type="text" name="vendor" class="form-control" placeholder="Enter Product vendor" />
+							 </div>
                               <!-- input -->
                               <div class="mb-3">
                                  <label class="form-label" id="productSKU">Status</label>
                                  <br />
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked />
-                                    <label class="form-check-label" for="inlineRadio1">Active</label>
+                                    <input class="form-check-input" name="status" type="radio"  id="inlineRadio1" value="active" checked />
+                                    <label class="form-check-label"  for="inlineRadio1">Active</label>
                                  </div>
+
                                  <!-- input -->
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
+                                    <input class="form-check-input" name="status" type="radio" id="inlineRadio2" value="disabled" />
                                     <label class="form-check-label" for="inlineRadio2">Disabled</label>
                                  </div>
                                  <!-- input -->
@@ -535,39 +553,21 @@
                            <!-- input -->
                            <div class="mb-3">
                               <label class="form-label">Regular Price</label>
-                              <input type="text" class="form-control" placeholder="$0.00" />
+                              <input type="text" name="regularprice" class="form-control" placeholder="$0.00" />
                            </div>
                            <!-- input -->
                            <div class="mb-3">
                               <label class="form-label">Sale Price</label>
-                              <input type="text" class="form-control" placeholder="$0.00" />
-                           </div>
-                        </div>
-                     </div>
-                     <!-- card -->
-                     <div class="card mb-6 card-lg">
-                        <!-- card body -->
-                        <div class="card-body p-6">
-                           <h4 class="mb-4 h5">Meta Data</h4>
-                           <!-- input -->
-                           <div class="mb-3">
-                              <label class="form-label">Meta Title</label>
-                              <input type="text" class="form-control" placeholder="Title" />
-                           </div>
-
-                           <!-- input -->
-                           <div class="mb-3">
-                              <label class="form-label">Meta Description</label>
-                              <textarea class="form-control" rows="3" placeholder="Meta Description"></textarea>
+                              <input type="text" name="saleprice" class="form-control" placeholder="$0.00" />
                            </div>
                         </div>
                      </div>
                      <!-- button -->
-                     <div class="d-grid">
-                        <a href="#" class="btn btn-primary">Create Product</a>
+                     <div type="submit" class="d-grid">
+                        <button type="submit"  class="btn btn-primary">Create Product</button>
                      </div>
                   </div>
-               </div>
+               </form>
             </div>
          </main>
       </div>

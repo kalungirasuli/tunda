@@ -1,5 +1,5 @@
 
-const images=require('../models/images')
+const images=require('../models/Products')
 const videos=require('../models/videoShema')
 
 module.exports = {

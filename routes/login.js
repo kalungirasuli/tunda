@@ -2,15 +2,13 @@ const express=require('express')
 const router=express.Router()
 const Login=require('../controllers/loginControllers')
 
-router.post('/signin', Login.login)
-router.get('/signup',Login.signuppage)
-router.post('/signup',Login.signUp)
-router.post('/Adminlogin', Login.Adminlogin)
-router.get('/logout',Login.logout)
-router.get('/signin',Login.loginpage)
-router.get('/forgotpassword',Login.forgotpassword)
-router.get('/Adminsignup',async(req,res)=>{
-  res.status(200).render("adminsignup")  
-})
+
+router.get('/signup',Login.signuppage)// the signup page
+router.post('/signup',Login.signUp)// the signup route
+router.get('/logout',Login.logout)// the logout route
+router.get('/signin',Login.loginpage) // the signin page
+router.post('/signin', Login.signin)// the signin route
+router.get('/forgotpassword',Login.forgotpassword) // the forgot password page
+
 
 module.exports=router

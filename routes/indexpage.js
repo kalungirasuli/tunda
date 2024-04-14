@@ -2,7 +2,7 @@ const express= require('express')
 const router=express.Router()
 const controller=require('../controllers/data')
 const {auth}=require('../GenerateTokens')
-const Images=require('../models/images')
+const Images=require('../models/Products')
 router.get('/',async(req,res)=>{
     try{
         const image=await Images.find()

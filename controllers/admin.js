@@ -1,8 +1,9 @@
 const express = require("express");
 const Profile = require("../models/adminProfileModel");
 const User=require('../models/userModel')
+const {Accessoken,sendAccessToken}=require("../GenerateTokens")
 const VideoContent=require('../models/comments')
-const Images=require('../models/images')
+const Products=require('../models/Products')
 const Videos=require('../models/videoShema')
 const {auth}=require('../GenerateTokens')
 const bcrypt=require('bcrypt')
@@ -16,10 +17,17 @@ module.exports = {
       res.status(500).send("Failed to Post DATA ");
     }
   },
+  signin: async (req, res) => {
+    try {
+      res.status(200).render('./dashboard/signin');
+    } catch (error) {
+      res.status(500).send("failed to retrieve admins");
+    }
+  },
   post:async(req,res)=>{
     try {
       const check= await Profile.find()
-       if(check.length>0) return res.redirect('/signin')
+       if(check.length>0) return res.redirect('/adminsignin')
       res.render("./dashboard/signup");
     } catch (err) {
       console.error(err);
@@ -39,6 +47,35 @@ module.exports = {
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "An error occurred while signing up." });
+    }
+  },
+  AdminSigin:async(req,res)=>{
+    try{
+        const fields=req.body
+        const userHeaders=req.headers
+        if(!userHeaders) return res.status(400).json({message:"unauthorized token or token expired"})
+        if(!fields.email || !fields.password){
+            return res.status(400).json({
+                message:"all fields are required"
+            })
+        }else{
+            const check= await Profile.findOne({email:req.body.email})
+            if(!check){
+                return res.status(400).redirect('/adminsignin')
+            }else{
+                const comparePassword= await bcrypt.compare(req.body.password,check.password)
+                if(!comparePassword){
+                    return res.status(400).redirect('/adminsignin')
+                }else{
+                    //generate token from user id
+                    const accessToken=  Accessoken(check._id)
+                    sendAccessToken(res,accessToken)
+                    res.status(200).redirect('/admin')
+                }
+            }
+        }
+    }catch(err){
+        console.error(err)
     }
   },
   get: async (req, res) => {
@@ -64,7 +101,8 @@ module.exports = {
   },
   products:async(req,res)=>{
     try{
-        res.status(200).render('./dashboard/products')
+      const products= await Products.find()
+        res.status(200).render('./dashboard/products',{products})
     }catch(err){
         res.status(500).send("failed to retrieve products")
     }

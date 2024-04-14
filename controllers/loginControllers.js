@@ -4,11 +4,10 @@ const User = require("../models/userModel");
 const Admin=require('../models/adminProfileModel')
 const {hash,compare}=require('bcrypt')
 module.exports = {
-  login:async(req,res)=>{
+  signin:async(req,res)=>{
     try{
         const fields=req.body
         const userHeaders=req.headers
-        console.log(userHeaders.ip)
         if(!userHeaders) return res.status(400).json({message:"unauthorized token or token expired"})
         if(!fields.email || !fields.password){
             return res.status(400).json({
@@ -24,54 +23,15 @@ module.exports = {
                     return res.status(400).redirect('/signin')
                 }else{
                     //generate token from user id
-                    
                     const accessToken=  Accessoken(check._id)
                     sendAccessToken(res,accessToken)
-                    res.status(301).redirect('/learn')
-                  
-                  
-                  
-
-                  
+                    res.status(301).redirect('/')
                 }
             }
         }
     }catch(err){
         console.error(err)
     }
-},
-Adminlogin:async(req,res)=>{
-  try{
-      const fields=req.body
-      const userHeaders=req.headers
-      if(!userHeaders) return res.status(400).json({message:"unauthorized token or token expired"})
-      if(!fields.email || !fields.password){
-          return res.status(400).json({
-              message:"all fields are required"
-          })
-      }else{
-          const check= await Admin.findOne({email:req.body.email})
-          if(!check){
-              return res.status(400).redirect('/login')
-          }else{
-              const comparePassword= await compare(req.body.password,check.password)
-              if(!comparePassword){
-                  return res.status(400).redirect('/login')
-              }else{
-                  //generate token from user id
-                  const accessToken=  Accessoken(check._id)
-                  sendAccessToken(res,accessToken)
-                  res.status(200).redirect('/dashboard')
-                
-                
-
-                
-              }
-          }
-      }
-  }catch(err){
-      console.error(err)
-  }
 },
 logout:async(req,res)=>{
     try{
